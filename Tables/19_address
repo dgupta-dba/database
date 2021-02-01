@@ -1,0 +1,41 @@
+CREATE TABLE data.address  (
+	address_id bigint NOT NULL generated always as identity,
+	record_type character varying(15),
+	consumer_id bigint,
+	client_id integer , 
+	issuer_account_id varchar(30) NULL, 
+	issuer_consumer_id integer NULL,
+	contact_id smallint NULL,  
+	address1 varchar(100) NOT NULL,
+	address2 varchar(100) NULL,
+	address3 varchar(100) NULL,
+	city varchar(50) NULL,
+	state_code varchar(2) NULL,
+	country varchar(30) NULL,
+	zip varchar(10) ,
+	address_status char(1) NULL,
+	address_type  char(1) NULL,
+	dt_confirmation date NULL,
+	is_mailconsent boolean NOT NULL DEFAULT true,
+	dt_mailconsent date NULL,
+	dt_address_update date NULL, 
+	is_enabled boolean NOT NULL DEFAULT true,   
+    is_deleted boolean NOT NULL  DEFAULT false,
+	record_status_id smallint , 
+	dtm_utc_create timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by character varying(50)  NOT NULL DEFAULT 'EQB Service',
+	dtm_utc_update timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_by character varying(50)  NOT NULL DEFAULT 'EQB Service',
+	source_id smallint,	
+	app_id smallint,
+	ip_address inet,
+	mac_address macaddr 
+)
+WITH (
+    OIDS =TRUE
+)
+TABLESPACE vi_data; 
+ 
+ALTER TABLE data.address   ADD CONSTRAINT pk_data_address_id PRIMARY KEY (address_id) ; 
+ALTER TABLE data.address  ADD CONSTRAINT fk_data_address_consumer_id  FOREIGN KEY (consumer_id) REFERENCES data.consumer(consumer_id);  
+ALTER TABLE data.address ADD CONSTRAINT fk_data_address_client_id FOREIGN KEY (client_id) REFERENCES conf.client(client_id);  

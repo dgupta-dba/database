@@ -1,0 +1,23 @@
+CREATE TABLE conf.lookup_group
+(
+    lookup_group_id smallint NOT NULL  generated always as identity,
+    keyvalue character varying(50) ,
+    description character varying(200) ,
+    is_enabled boolean NOT NULL DEFAULT true,   
+    is_deleted boolean NOT NULL  DEFAULT false,
+	record_status_id smallint , 
+	dtm_utc_create timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by character varying(50)  NOT NULL DEFAULT 'EQB Service',
+	dtm_utc_update timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_by character varying(50)  NOT NULL DEFAULT 'EQB Service',
+	source_id smallint,	
+	app_id smallint,
+	ip_address inet,
+	mac_address macaddr
+)
+WITH (
+    OIDS =TRUE
+)
+TABLESPACE vi_common; 
+
+ALTER TABLE conf.lookup_group ADD CONSTRAINT pk_conf_lookup_group_id PRIMARY KEY (lookup_group_id) ;

@@ -1,0 +1,28 @@
+CREATE  TABLE conf.country_state
+(
+    country_state_id smallint NOT NULL  generated always as identity,
+    country_id smallint NOT NULL,
+	short_name character varying(3)  NOT NULL,
+    full_name character varying(30)  NOT NULL,
+	description character varying(200) ,
+	first2digitzip character varying(2)  NOT NULL,
+	is_enabled boolean NOT NULL DEFAULT true,   
+    is_deleted boolean NOT NULL  DEFAULT false,
+	record_status_id smallint , 
+	dtm_utc_create timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by character varying(50)  NOT NULL DEFAULT 'EQB Service',
+	dtm_utc_update timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_by character varying(50)  NOT NULL DEFAULT 'EQB Service',
+	source_id smallint,	
+	app_id smallint,
+	ip_address inet,
+	mac_address macaddr
+)
+WITH (
+    OIDS =TRUE
+)
+TABLESPACE vi_common;   
+
+ALTER TABLE conf.country_state  ADD CONSTRAINT pk_conf_country_state_id PRIMARY KEY (country_state_id) ; 
+ALTER TABLE conf.country_state  ADD CONSTRAINT uk_conf_country_state_short_name UNIQUE (country_id,short_name) ; 
+ALTER TABLE conf.country_state  ADD CONSTRAINT fk_conf_country_state_country_id FOREIGN KEY(country_id) REFERENCES conf.country (country_id) ON UPDATE NO ACTION ON DELETE NO ACTION;

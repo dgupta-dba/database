@@ -1,0 +1,27 @@
+CREATE TABLE conf.lookup
+(
+    lookup_id smallint NOT NULL generated always as identity,
+    lookup_group_id smallint NOT NULL ,
+    group_sequence smallint,
+    keycode character(1) ,
+    keyvalue character varying(50) ,
+    description character varying(200) ,
+    is_enabled boolean NOT NULL DEFAULT true,   
+    is_deleted boolean NOT NULL  DEFAULT false,
+	record_status_id smallint , 
+	dtm_utc_create timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by character varying(50)  NOT NULL DEFAULT 'EQB Service',
+	dtm_utc_update timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_by character varying(50)  NOT NULL DEFAULT 'EQB Service',
+	source_id smallint,	
+	app_id smallint,
+	ip_address inet,
+	mac_address macaddr
+)
+WITH (
+    OIDS =TRUE
+)
+TABLESPACE vi_common; 
+
+ALTER TABLE conf.lookup ADD CONSTRAINT pk_conf_lookup_id PRIMARY KEY (lookup_id) ;
+ALTER TABLE conf.lookup ADD CONSTRAINT fk_conf_lookup_lookup_group_id foreign key(lookup_group_id) REFERENCES conf.lookup_group(lookup_group_id) ON UPDATE NO ACTION ON DELETE NO ACTION;

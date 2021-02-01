@@ -1,0 +1,25 @@
+CREATE TABLE conf.job_schedule (
+	job_schedule_id integer NOT NULL generated always as identity,
+	job_id integer NULL,
+	s3_file_url varchar(100) NULL,
+	template_bucket varchar(50) NULL,
+	template_file varchar(50) NULL,
+	job_schedule_status smallint NULL,
+	failed_reason varchar(100) NULL,
+	record_status_id smallint , 
+	dtm_utc_create timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by character varying(50)  NOT NULL DEFAULT 'EQB Service',
+	dtm_utc_update timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_by character varying(50)  NOT NULL DEFAULT 'EQB Service',
+	source_id smallint,	
+	app_id smallint,
+	ip_address inet,
+	mac_address macaddr
+)
+WITH (
+    OIDS =TRUE
+)
+TABLESPACE vi_common; 
+ 
+ALTER TABLE conf.job_schedule ADD CONSTRAINT pk_conf_job_schedule_id PRIMARY KEY (job_schedule_id) ;  
+ALTER TABLE conf.job_schedule ADD CONSTRAINT fk_conf_job_schedule_job_id FOREIGN KEY (job_id) REFERENCES conf.job(job_id); 

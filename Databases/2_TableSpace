@@ -1,0 +1,5 @@
+
+CREATE TABLESPACE vi_common OWNER postgres  LOCATION '/vi_common';
+CREATE TABLESPACE vi_audit OWNER postgres  LOCATION '/vi_audit';
+CREATE TABLESPACE vi_data OWNER postgres  LOCATION '/vi_data';
+CREATE TABLESPACE vi_index OWNER postgres  LOCATION '/vi_i

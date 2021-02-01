@@ -1,0 +1,36 @@
+CREATE TABLE data.header (
+	header_id  integer NOT NULL generated always as identity,
+	job_id integer NULL,
+	agency_id integer NULL,
+	vendor_id smallint NULL,
+	client_id integer NULL,
+	record_type varchar(15) NOT NULL,
+	file_type varchar(10) NULL,
+	status_code smallint NOT NULL DEFAULT 0,
+	dtm_utc_task_start timestamp without time zone ,
+	dtm_utc_task_end timestamp without time zone , 
+	dtm_utc_file_create timestamp without time zone,
+	record_count integer NULL,
+	unique_account_count integer NULL,
+	file_version varchar(20) NULL, 
+	is_enabled boolean NOT NULL DEFAULT true,   
+    is_deleted boolean NOT NULL  DEFAULT false,
+	record_status_id smallint , 
+	dtm_utc_create timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by character varying(50)  NOT NULL DEFAULT 'EQB Service',
+	dtm_utc_update timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_by character varying(50)  NOT NULL DEFAULT 'EQB Service',
+	source_id smallint,	
+	app_id smallint,
+	ip_address inet,
+	mac_address macaddr
+)
+WITH (
+    OIDS =TRUE
+)
+TABLESPACE vi_data; 
+ 
+ALTER TABLE data.header ADD CONSTRAINT pk_data_header_id PRIMARY KEY (header_id) ; 
+ALTER TABLE data.header ADD CONSTRAINT fk_data_header_job_id FOREIGN KEY (job_id) REFERENCES conf.job(job_id);
+ALTER TABLE data.header ADD CONSTRAINT fk_data_header_client_id FOREIGN KEY (client_id) REFERENCES conf.client(client_id);
+ALTER TABLE data.header ADD CONSTRAINT fk_data_header_agency_id FOREIGN KEY (agency_id) REFERENCES conf.agency(agency_id);

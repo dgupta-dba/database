@@ -1,0 +1,22 @@
+CREATE TABLE conf.charge_off_reason
+(
+    charge_off_reason_id smallint NOT NULL  generated always as identity,
+    description character varying(50)  ,
+    is_enabled boolean NOT NULL DEFAULT true,   
+    is_deleted boolean NOT NULL  DEFAULT false,
+	record_status_id smallint,
+	dtm_utc_create timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by character varying(50)  NOT NULL DEFAULT 'EQB Service',
+	dtm_utc_update timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_by character varying(50)  NOT NULL DEFAULT 'EQB Service',
+	source_id smallint,	
+	app_id smallint,
+	ip_address inet,
+	mac_address macaddr
+)
+WITH (
+    OIDS =TRUE
+)
+TABLESPACE vi_common; 
+
+ALTER TABLE conf.charge_off_reason ADD CONSTRAINT pk_conf_charge_off_reason_id PRIMARY KEY (charge_off_reason_id) ;

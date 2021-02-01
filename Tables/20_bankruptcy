@@ -1,0 +1,51 @@
+
+CREATE TABLE data.bankruptcy (
+	bankruptcy_id integer NOT NULL generated always as identity,
+	record_type character varying(15),
+	consumer_id bigint,
+	client_id integer ,
+	account_id bigint  , 	
+	issuer_account_id varchar(30) NULL,
+	contact_id smallint NULL, 
+	bankruptcy_number varchar(20) NULL,
+	flag Boolean NULL,
+	dt_filed date NULL,
+	dt_341  date NULL,
+	dt_discharge date NULL,
+	dt_dismiss date NULL,
+	dt_bar date NULL,
+	dt_claim_recieved date NULL,
+	dt_dis_notice date NULL,
+	dt_entered date NULL,
+	dt_issued date NULL,
+	amt_claim numeric(13,2) NULL,
+	city varchar(50) NULL,
+	state_code varchar(2) NULL,
+	zip character varying(10) ,
+	code varchar(25) NULL,
+	dt_case_conf date NULL,
+	amt_scheduled_payment numeric(13,2) NULL,
+	amt_plan_balance numeric(13,2) NULL,
+	plan_duration integer NULL,
+	plan_interval integer NULL,
+	plan_type varchar(50) NULL,
+	is_enabled boolean NOT NULL DEFAULT true,   
+    is_deleted boolean NOT NULL  DEFAULT false,
+	record_status_id smallint , 
+	dtm_utc_create timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by character varying(50)  NOT NULL DEFAULT 'EQB Service',
+	dtm_utc_update timestamp without time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_by character varying(50)  NOT NULL DEFAULT 'EQB Service',
+	source_id smallint,	
+	app_id smallint,
+	ip_address inet,
+	mac_address macaddr
+)
+WITH (
+    OIDS =TRUE
+)
+TABLESPACE vi_data; 
+ 
+ALTER TABLE data.bankruptcy  ADD CONSTRAINT pk_data_bankruptcy_id PRIMARY KEY (bankruptcy_id) ; 
+ALTER TABLE data.bankruptcy ADD CONSTRAINT fk_data_bankruptcy_client_id FOREIGN KEY (client_id) REFERENCES conf.client(client_id)  ON UPDATE NO ACTION ON DELETE NO ACTION;   
+ALTER TABLE data.bankruptcy ADD CONSTRAINT fk_data_bankruptcy_consumer_id FOREIGN KEY (consumer_id) REFERENCES data.consumer(consumer_id)  ON UPDATE NO ACTION ON DELETE NO ACTION;

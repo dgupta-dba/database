@@ -1,0 +1,6 @@
+
+create schema admn;
+create schema audt;
+create schema conf;
+create schema data;
+create schema wapp;
